@@ -1,11 +1,16 @@
 ChangeLog
 =========
-v0.1.1
+
+v0.0.3
+------------
+- 'Zerozero'-Bug fixed
+
+v0.0.2
 ------------
 - Stop renamed in pause
 - "Pause" bug fixed
 
-v0.1.0
+v0.0.1
 ------------
 - Added Changelog
 - REDME.md changed

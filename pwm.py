@@ -39,6 +39,20 @@ while 1:
         print("---------------------------------")
         continue
         
+    if z == 0 or y == 0:
+        if z == 0 and y == 0:
+            GPIO.cleanup()
+            
+            print("    Das Programm wurde Beendet   ")
+            print("---------------------------------")
+            print("-----Code by Maurice Seifert-----")
+            print("---------------------------------")
+            break
+        
+        print("Die Werte 0 im Duty Cycle und/oder in der Frequenz sind NICHT möglich!")
+        print("---------------------------------")
+        continue
+    
     print("Frequenz auf", x,"& Duty Cycle auf", z,"gestellt")
     print("---------------------------------")
     p = GPIO.PWM(12, y)
