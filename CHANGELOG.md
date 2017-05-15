@@ -1,5 +1,10 @@
 ChangeLog
 =========
+
+v0.2.2
+------------
+- Clean up code
+
 v0.2.1
 ------------
 - Remove PWM-Pin selection
