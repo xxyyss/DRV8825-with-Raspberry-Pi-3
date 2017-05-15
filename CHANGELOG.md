@@ -1,14 +1,19 @@
 ChangeLog
 =========
 
-v.0.0.9
+v0.0.10
+------------
+- Added message for motor driver overheat
+- Bug fixes
+
+v0.0.9
 ------------
 - Added 'Start'
 - Bug fixes
 - Design optimization
 - Performance optimizations
 
-v.0.0.8
+v0.0.8
 ------------
 - Bug fixes in Setup
 - Design optimization
