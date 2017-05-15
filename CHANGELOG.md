@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.1.3
+------------
+- deactivate Input-option in Setup
+
 v0.1.2
 ------------
 - Fatal error fixed

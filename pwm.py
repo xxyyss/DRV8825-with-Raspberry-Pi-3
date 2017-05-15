@@ -14,23 +14,25 @@ GPIO.setmode(GPIO.BOARD)
 
 # Noch in Testphase    
 def overheated():
-    GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-    while(1):
-        # Sicheres Beenden durch veränderung der KILL-Variablen
-        time.sleep(1)
-        if KILL == 1:
-            return
-        try:
-            if GPIO.input(k) == 1:
-                o = 0
-            if GPIO.input(k) == 0 and o == 0:
-                print("---------------------------------")
-                print("ACHTUNG. MOTORTREIBER ÜBERHITZT")
-                print("---------------------------------")
-                o = 1
-        except:            
-            time.sleep(0)
-
+        while(k != 0):
+            try:
+                GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+                # Sicheres Beenden durch veränderung der KILL-Variablen
+                time.sleep(1)
+                if KILL == 1:
+                    return
+                try:
+                    if GPIO.input(k) == 1:
+                        o = 0
+                    if GPIO.input(k) == 0 and o == 0:
+                        print("---------------------------------")
+                        print("ACHTUNG. MOTORTREIBER ÜBERHITZT")
+                        print("---------------------------------")
+                        o = 1
+                except:            
+                    time.sleep(0)
+            except:            
+                    time.sleep(0)
 #Willkommensnachricht
 print("Starte pwm.py ...")
 time.sleep(0.5)
@@ -77,7 +79,7 @@ while(1):
     
     # Outout-Pin umstellen
     try:
-        h = input('PWM-Kanal (Standard: 12): ')
+        h = input('PWM-Kanal: ')
         i = int(h)
     except:
         print("---------------------------------")
@@ -88,7 +90,7 @@ while(1):
 
     # Input-Pin umstellen
     try:
-        j = input('Input-Pin (Standard: 11): ')
+        j = input('Input-Pin (0 für keinen Pin): ')
         k = int(j)
     except:
         print("---------------------------------")
@@ -161,9 +163,12 @@ while(1):
         print("Die Einstellung wurde übernommen")
         print("---------------------------------")
         print("Programm wird gestartet")
+        time.sleep(0.5)
         #Starte thread:
-        thread.start_new_thread(overheated,())
-        time.sleep(1)
+        if (k != 0):
+            thread.start_new_thread(overheated,())
+            time.sleep(3)
+        time.sleep(0.5)
         print("---------------------------------")
         
     #Andere Eingaben
@@ -176,6 +181,7 @@ while(1):
         print("Setup wird neu gestartet")
         print("---------------------------------")
         continue
+
             
     #Setup Ende
 
@@ -212,7 +218,8 @@ while(1):
                 GPIO.setwarnings(False)
                 GPIO.setmode(GPIO.BOARD)
                 GPIO.setup(i, GPIO.OUT)
-                GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+                if (k != 0):
+                    GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
                 time.sleep(0.5)
                 p = GPIO.PWM(i, y)
                 p.stop()
