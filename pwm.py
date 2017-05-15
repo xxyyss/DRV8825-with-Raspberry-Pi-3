@@ -12,11 +12,9 @@ GPIO.setmode(GPIO.BOARD)
 
 # Erster Start vom Setup
 print("---------------------------------")
-print("SETUP")
 print("---------------------------------")
-print("Achung: Das Setup kann bei")
-print("Eingabe falscher Pin Werten")
-print("unerwartet abbrechen")
+print("|       |    SETUP      |       |")
+print("---------------------------------")
 print("---------------------------------")
 
 # Schleife wegen beenden des Programmes
@@ -63,6 +61,35 @@ while(1):
     if(i == k):
         print("---------------------------------")
         print("Input und Output können NICHT auf dem gleichen Pins sein!")
+        print("---------------------------------")
+        time.sleep(1.5)
+        continue
+    
+    # Abbrechen bei falschen Pin-Werten
+    if(i != 12 and i != 32 and i != 33 and i != 35 and i != 0 \
+       and i != 23 and i != 24 and i != 1 and i!= 26):
+        print("---------------------------------")
+        print("Im Output gehen nur die Pins 12,")
+        print("32, 33 & 35. Im Input gehen nur")
+        print("die Pins mit der der Nummer 8, 10")
+        print("16, 18, 22, 36, 37, 3, 29, 15,")
+        print("13, 11 & 7. Die Pins 23, 24,")
+        print("26 & 1 sind für In oder Output möglich")
+        print("---------------------------------")
+        time.sleep(1.5)
+        continue
+    
+    if(k != 8 and k != 10 and k != 16 and k != 18 and k != 22 \
+       and k != 36 and k != 37 and k != 31 and k != 29 \
+       and k != 15 and k != 13 and k != 11 and k != 7 and k != 23 \
+       and k != 24 and k != 26 and k != 1 and k != 0):
+        print("---------------------------------")
+        print("Im Output gehen nur die Pins 12,")
+        print("32, 33 & 35. Im Input gehen nur")
+        print("die Pins mit der der Nummer 8, 10")
+        print("16, 18, 22, 36, 37, 3, 29, 15,")
+        print("13, 11 & 7. Die Pins 23, 24,")
+        print("26 & 1 sind für In oder Output möglich")
         print("---------------------------------")
         time.sleep(1.5)
         continue
@@ -144,7 +171,8 @@ while(1):
                 continue
             except:
                 print("---------------------------------")
-                print("Du kannst nichts Pausieren wenn nichts läuft :o")
+                print("Du kannst nichts Pausieren,")
+                print("wenn nichts läuft :o")
                 print("---------------------------------")
                 time.sleep(1.5)
                 continue
@@ -178,7 +206,8 @@ while(1):
 
             # Fehlermeldung bei Wert Null
             print("---------------------------------")
-            print("Die Werte 0 im Duty Cycle und/oder in der Frequenz sind NICHT möglich!")
+            print("Die Werte 0 im Duty Cycle und/oder")
+            print("in der Frequenz sind NICHT möglich!")
             print("---------------------------------")
             time.sleep(1.5)
             continue
@@ -186,14 +215,16 @@ while(1):
         # Prüfen auf Eingabe höher als 100
         if z > 101:
             print("---------------------------------")
-            print("Der Wert beim Duty Cycle darf nicht höher als 100 sein")
+            print("Der Wert beim Duty Cycle darf")
+            print("nicht höher als 100 sein")
             print("---------------------------------")
             time.sleep(1.5)
             continue
 
         # Ausgabe
         print("---------------------------------")
-        print("Frequenz auf", x,"& Duty Cycle auf", z,"gestellt")
+        print("Frequenz auf", x,"&")
+        print("Duty Cycle auf", z,"gestellt")
         print("---------------------------------")
         
         # Setup durchführen
