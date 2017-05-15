@@ -12,6 +12,7 @@ w = 0
 h = 0
 l = 0
 j = 0
+y = 1
 
 # configuration
 GPIO.setwarnings(True)
@@ -114,6 +115,7 @@ while(1):
         
     # set Output-Pin
     print('PWM-Pin: 12')
+    stroke()
 
     # set Input-Pin
     j = input('Choose Input-Pin or enter 0: ')
@@ -151,10 +153,17 @@ while(1):
     # Yes
     if l == "y":
         print("Setup complete")
-        time.sleep(0.5)
-        #start thread:
+        time.sleep(0.2)
+        # start thread:
         if (k != 0):
             thread.start_new_thread(overheated,())
+        # Setup
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(12, GPIO.OUT)
+        if (k != 0):
+            GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+        p = GPIO.PWM(12, 1)
+        p.stop()
         time.sleep(0.5)
         info1()
         
@@ -169,20 +178,13 @@ while(1):
       
     # Start PWM
     while 1:
-        
+
         # Input informations
         x = input('>> ').lower()
 
         # Start
         if x == 'start':
             try:
-                time.sleep(0.5)
-                GPIO.setmode(GPIO.BOARD)
-                GPIO.setup(12, GPIO.OUT)
-                if (k != 0):
-                    GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-                time.sleep(0.5)
-                p = GPIO.PWM(12, y)
                 p.stop()
                 p = GPIO.PWM(12, y)
                 time.sleep(0.5)
