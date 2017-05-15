@@ -71,8 +71,6 @@ def stroke():
 def exitnow():
     if k == 'exit':
         exitsetps()
-    if h == 'exit':
-        exitsetps()
     if w == 'exit':
         exitsetps()
     if l == 'exit':
@@ -84,6 +82,12 @@ def exitsetps():
         exitProgMessage()
         time.sleep(0.01)
         raise SystemExit
+
+def InValCheck():
+    if (k != 0):
+        print("Input Pin :", k)
+    else:
+        print("Input Pin :")
     
 # Start thread for checking fault-output of driver
 def overheated():
@@ -228,21 +232,14 @@ while(1):
                 print("Frequency :", wert)
                 print("Duty cycle:", z)
                 print("PWM-Pin   :", 12)
-                if (k != 0):
-                    print("Input Pin :", k)
-                else:
-                    print("Input Pin :")
-                
+                InValCheck()
                 stroke()
                 continue
             except:
                 print("Frequency :")
                 print("Duty cycle:" )
                 print("PWM-Pin   :", 12)
-                if (k != 0):
-                    print("Input Pin :", k)
-                else:
-                    print("Input Pin :")
+                InValCheck()
                 stroke()
                 continue
 
