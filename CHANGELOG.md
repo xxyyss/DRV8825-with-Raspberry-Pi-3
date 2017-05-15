@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.0.5
+------------
+- Added Setup
+
 v0.0.4
 ------------
 - Design optimization and bug fixes
