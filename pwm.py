@@ -3,42 +3,82 @@ import RPi.GPIO as GPIO
 import time
 import _thread as thread
 KILL = 0
+print("---------------------------------")
+print("SETUP")
+print("---------------------------------")
+print("Achung: Das Setup kann bei")
+print("Eingabe falscher Pin Werten")
+print("unerwartet abbrechen")
+print("---------------------------------")
 while(1):
     if KILL == 1:
         break
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
+    try:
+        print("Output-Pin (Standart: 12):")
+        h = input()
+        i = int(h)
+    except:
+        print("---------------------------------")
+        print("Bitte Eingabe prüfen!")
+        print("---------------------------------")
+        time.sleep(1.5)
+        continue
     print("---------------------------------")
-    print("SETUP:")
-    print("---------------------------------")
-    print("Output-Pin (Standart: 12):")
-    h = input()
-    i = int(h)
-    print("---------------------------------")
-    print("Input-Pin (Standart: 11):")
-    j = input()
-    k = int(j)
+    try:
+        print("Input-Pin:")
+        j = input()
+        k = int(j)
+    except:
+        print("---------------------------------")
+        print("Bitte Eingabe prüfen!")
+        print("---------------------------------")
+        time.sleep(1.5)
+        continue
+    
+    if(i == 0 and k == 0):
+        print("---------------------------------")
+        print("Das Programm wurde Beendet")
+        print("---------------------------------")
+        print("---------------------------------")
+        break
+        
+    if(i == k):
+        print("---------------------------------")
+        print("Input und Output können NICHT auf dem gleichen Pins sein!")
+        print("---------------------------------")
+        time.sleep(1.5)
+        continue
+        
     GPIO.setup(i, GPIO.OUT)
     GPIO.setup(k, GPIO.IN)
     print("---------------------------------")
     print("Output Pin:", i)
     print("Input Pin:", k)
-    print("---------------------------------")
-    print("Möchtest du fortführen? [N/J]")
-    l = input()
+    print("---------------------------------")              
+    try:
+        print("Möchtest du fortführen? [N/J]")
+        l = input()
 
-    if l == "N":
+        if l == "N":
+            print("---------------------------------")
+            print("Das Prgramm wurde abgebrochen")
+            print("Starte das Program neu!")
+            print("---------------------------------")
+            break
+        if l == "J":
+            print("Deine Einstellung wurde übernommen")
+            print("---------------------------------")
+            print("Programm wird gestartet")
+            time.sleep(3)
+            print("---------------------------------")
+    except:
         print("---------------------------------")
-        print("Das Prgramm wurde abgebrochen")
-        print("Starte das Program neu!")
+        print("Bitte Eingabe prüfen!")
         print("---------------------------------")
-        break
-    if l == "J":
-        print("Deine Einstellung wurde übernommen")
-        print("---------------------------------")
-        print("Programm wird gestartet")
-        time.sleep(3)
-        print("---------------------------------")
+        time.sleep(1.5)
+        continue
 
     def show():
         while(1):
@@ -65,11 +105,13 @@ while(1):
                 print("---------------------------------")
                 print("Das Programm wurde Pausiert")
                 print("---------------------------------")
+                time.sleep(1.5)
                 continue
             except:
                 print("---------------------------------")
                 print("Du kannst nichts Pausieren wenn nichts läuft :o")
                 print("---------------------------------")
+                time.sleep(1.5)
                 continue
         
         try:
@@ -83,7 +125,7 @@ while(1):
             print("---------------------------------")
             print("Bitte Eingabe prüfen!")
             print("---------------------------------")
-            
+            time.sleep(1.5)
             continue
             
         if z == 0 or y == 0:
@@ -99,11 +141,13 @@ while(1):
             print("---------------------------------")
             print("Die Werte 0 im Duty Cycle und/oder in der Frequenz sind NICHT möglich!")
             print("---------------------------------")
+            time.sleep(1.5)
             continue
         if z > 101:
             print("---------------------------------")
             print("Der Wert beim Duty Cycle darf nicht höher als 100 sein")
             print("---------------------------------")
+            time.sleep(1.5)
             continue
 
         print("---------------------------------")
@@ -111,4 +155,5 @@ while(1):
         print("---------------------------------")
         p = GPIO.PWM(12, y)
         p.start(z)
+        time.sleep(1.5)
 
