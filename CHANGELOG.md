@@ -1,6 +1,19 @@
 ChangeLog
 =========
 
+v0.2.0
+------------
+- Clean up code
+- Bug fixes
+- Performance optimizations
+- Design optimization
+- Added help function
+- translation to English
+- clean up comments
+- Remove the kill variable
+- Added 'exit everywhere' funktion
+- Remove function to exit with to 0
+
 v0.1.3
 ------------
 - deactivate Input-option in Setup

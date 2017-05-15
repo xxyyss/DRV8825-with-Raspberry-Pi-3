@@ -1,133 +1,152 @@
-# Import
 # -*- coding: utf-8 -*-
+
 import RPi.GPIO as GPIO
 import time
 import _thread as thread
-# Variable KILL um sicheres Beenden durchführen zu können
-KILL = 0
+
+
+# Variables
 o = 0
 k = 0
+w = 0
+h = 0
+l = 0
+j = 0
 
-# Konfiguration
-GPIO.setwarnings(False)
+# configuration
+GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BOARD)
 
-# Noch in Testphase    
-def overheated():
-        while(k != 0):
-            try:
-                GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-                # Sicheres Beenden durch veränderung der KILL-Variablen
-                time.sleep(1)
-                if KILL == 1:
-                    return
-                try:
-                    if GPIO.input(k) == 1:
-                        o = 0
-                    if GPIO.input(k) == 0 and o == 0:
-                        print("---------------------------------")
-                        print("ACHTUNG. MOTORTREIBER ÜBERHITZT")
-                        print("---------------------------------")
-                        o = 1
-                except:            
-                    time.sleep(0)
-            except:            
-                    time.sleep(0)
-#Willkommensnachricht
-print("Starte pwm.py ...")
-time.sleep(0.5)
-print("---------------------------------")
-print("|          Willkommen           |")
-print("---------------------------------")
-print("Du musst zuerst das Setup")
-print("(bei jedem Start des Programms)")
-print("durchführen. Beim Setup musst du")
-print("den Pin für den PWM-Kanal")
-print("und den Input-Pin angeben.")
-print("Danach startet das eigentliche")
-print("Programm, das ein PWM-Signal,")
-print("bei dem Raspberry, ausgeben kann.")
-print("Dieses Programm ist dafür")
-print("konzipiert einen Schrittmotor mit")
-print("dem DRV8825-Motortreiber")
-print("ansteuern.")
-print("Die Inputfunktion ist noch")
-print("in Arbeit, soll aber")
-print("voraussichtlich durch ein GPIO-")
-print("Inputsignal auf die Überhitzung")
-print("des Motortreibes hinweisen.")
-print("---------------------------------")
-print("Info: Du kannst bei jeder Eingabe,")
-print("eine Null eingeben. Nach Eingabe")
-print("der Nullen nach zwei Eingaben,")
-print("beendet sich das Progamm")
-print("---------------------------------")
-time.sleep(0.2)
-print("Starte SETUP ...")
-time.sleep(0.5)
-# Erster Start vom Setup
-print("---------------------------------")
-print("|       |    SETUP      |       |")
-print("---------------------------------")
+# Information 1
+def info1():
+    stroke()
+    print("Commands:")
+    print(" ")
+    print("'start' to start the PWM")
+    print("'pause' stops the PWM")
+    print("'exit' closes the program")
+    print("'value' shows settings")
+    print("'?' shows help")
+    print(" ")
+    print("To input a new frequency enter a number. After that you can set the duty cicle")
 
-# Schleife wegen beenden des Programmes
-while(1):
-    # Hier könnte sich das Setup wiederholen
-    # Sicheres Beenden durch veränderung der KILL-Variablen
-    if KILL == 1:
-        break
+# Information 2
+def info2():
+    stroke()
+    print("|       |      HELP      |      |")
+    stroke()
+    print("https://github.com/mauricesifrt/DRV8825-with-Raspberry-Pi-3/")
+    print("For help see Github")
+    print(" ")
+    print("Commands:")
+    print("'start' to start the PWM")
+    print("'pause' stops the PWM")
+    print("'exit' closes the program")
+    print("'value' shows settings")
     
-    # Outout-Pin umstellen
-    try:
-        h = input('PWM-Kanal: ')
-        i = int(h)
-    except:
-        print("---------------------------------")
-        print("Bitte Eingabe prüfen!")
-        print("---------------------------------")
-        continue
+# Check Input Message
+def checkInpMessage():
+    stroke()
+    print("Check input")
+    stroke()
+    
+# Exit Program Message
+def exitProgMessage():
+    stroke()
+    print("Closing program")
+    stroke()
+    stroke()
+    
+# invalid pin values Message
+def PinInfoMessage():
+    stroke()
+    print("PWM-Pins possible  : 1, 12, 23, 24, 26, 32, 33, 35")
+    print("Input-Pins possible: 1, 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
+    stroke()
+
+def stroke():
     print("---------------------------------")
 
-    # Input-Pin umstellen
+def exitnow():
+    if k == 'exit':
+        exitsetps()
+    if h == 'exit':
+        exitsetps()
+    if w == 'exit':
+        exitsetps()
+    if l == 'exit':
+        exitsetps()
+    if j == 'exit':
+        exitsetps()
+
+def exitsetps():
+        GPIO.cleanup()
+        exitProgMessage()
+        time.sleep(0.01)
+        raise SystemExit
+    
+# Start thread for checking fault-output of driver
+def overheated():
+    # Setup of Input
+    GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+    time.sleep(1)
+    # Process data and print warning if necessary
     try:
-        j = input('Input-Pin (0 für keinen Pin): ')
+        if GPIO.input(k) == 1:
+            o = 0
+            if GPIO.input(k) == 0 and o == 0:
+                stroke()
+                print("!!! WARNING: DRIVER MALFUNCTION !!!")
+                stroke()
+                o = 1
+    except:
+        time.sleep(0)
+        
+# Here starts the program
+stroke()
+print("https://github.com/mauricesifrt/DRV8825-with-Raspberry-Pi-3")
+time.sleep(0.5)
+stroke()
+print("|       |    SETUP      |       |")
+stroke()
+
+# Loop for terminating the program
+while(1):
+        
+    # set Output-Pin
+    h = input('Choose PWM-Pin: ')
+    exitnow()
+    try:
+        i = int(h)
+    except:
+        checkInpMessage()
+        continue
+    stroke()
+
+    # set Input-Pin
+    j = input('Choose Input-Pin or enter 0: ')
+    exitnow()
+    time.sleep(0.1)
+    try:
         k = int(j)
     except:
-        print("---------------------------------")
-        print("Bitte Eingabe prüfen!")
-        print("---------------------------------")
+        checkInpMessage()
         time.sleep(0.2)
         continue
 
-    # Sicheres Beenden durch eingeben von zwei Nullen
-    if(i == 0 and k == 0):
-        print("---------------------------------")
-        print("Das Programm wurde beendet")
-        print("---------------------------------")
-        print("---------------------------------")
-        break
-
-    # Abbrechen bei 2 Gleichen Werten
+    # Cancel when input and output on same pin
     if(i == k):
-        print("---------------------------------")
-        print("Input und PWM-Pin können NICHT")
-        print("auf den gleichen Pins sein!")
-        print("---------------------------------")
+        stroke()
+        print("Input and output on same pin")
+        print("Going to setup again...")
+        stroke()
         time.sleep(0.2)
         continue
     
-    # Abbrechen bei falschen Pin-Werten
-    if(i != 12 and i != 32 and i != 33 and i != 35 and i != 0 \
+    # Cancel with invalid pin values
+    if(i != 12 and i != 32 and i != 33 and i != 35 and i != 18 \
        and i != 23 and i != 24 and i != 1 and i!= 26):
-        print("---------------------------------")
-        print("Im PWM-Pin gehen nur die Pins")
-        print("12, 32, 33 & 35. Im Input gehen ")
-        print("nur die Pins mit der Nummer 8,")
-        print("10, 16, 18, 22, 36, 37, 3, 29, 15,")
-        print("13, 11 & 7. Die Pins 23, 24,")
-        print("26 & 1 sind für In oder PWM-Pin")
-        print("möglich")
-        print("---------------------------------")
+        PinInfoMessage()
         time.sleep(0.2)
         continue
     
@@ -135,87 +154,52 @@ while(1):
        and k != 36 and k != 37 and k != 31 and k != 29 \
        and k != 15 and k != 13 and k != 11 and k != 7 and k != 23 \
        and k != 24 and k != 26 and k != 1 and k != 0):
-        print("---------------------------------")
-        print("Im PWM-Pin gehen nur die Pins")
-        print("12, 32, 33 & 35. Im Input gehen ")
-        print("nur die Pins mit der Nummer 8,")
-        print("10, 16, 18, 22, 36, 37, 3, 29, 15,")
-        print("13, 11 & 7. Die Pins 23, 24,")
-        print("26 & 1 sind für In oder PWM-Pin")
-        print("möglich")
-        print("---------------------------------")
+        PinInfoMessage()
         time.sleep(0.2)
         continue
     
-    # Abfragen der Setupeinstellung
-    print("---------------------------------")
-    l = input('Möchtest du fortführen? [N/J]: ').lower()
+    # Continue Setup
+    stroke()
+    l = input('Continue? [y/n]: ').lower()
+    exitnow()
 
-    #NEIN
+    # No
     if l == "n":
-        print("---------------------------------")
-        print("Setup wird neu gestartet")
-        print("---------------------------------")
+        stroke()
+        print("Going to setup...")
+        stroke()
         continue
 
-    #JA
-    if l == "j":
-        print("Die Einstellung wurde übernommen")
-        print("---------------------------------")
-        print("Programm wird gestartet")
+    # Yes
+    if l == "y":
+        print("Setup complete")
         time.sleep(0.5)
-        #Starte thread:
+        #start thread:
         if (k != 0):
             thread.start_new_thread(overheated,())
-            time.sleep(3)
         time.sleep(0.5)
-        print("---------------------------------")
+        info1()
         
-    #Andere Eingaben
-    if l != ("j" or "n"):
-        print("---------------------------------")
-        print("Die Eingabe '",l,"' ungültig")
-        print("Bitte Eingabe prüfen!")
-        print("---------------------------------")
+    # Invalid input
+    if l != ("y" or "n"):
+        checkInpMessage()
         time.sleep(0.2)
-        print("Setup wird neu gestartet")
-        print("---------------------------------")
-        continue
-
-            
-    #Setup Ende
-
-    #Start des eigentlichen Programmes
+        print("Going to setup")
+        stroke()
+        continue       
+    # End of setup
+      
+    # Start PWM
     while 1:
+        
+        # Input informations
+        x = input('>> ').lower()
 
-        #Sicheres Beenden durch veränderung der KILL-Variablen
-        if KILL == 1:
-            break
-
-        #Abfrage
-        print("Diese Befehle kannst du")
-        print("hier anwenden:")
-        print(" ")
-        print("'Start' startet die Anwendung")
-        print("'Pause' pausiert die Anwendung")
-        print("'Ende' beendet die Anwendung")
-        print("'Werte' zeigt aktuelle Werte")
-        print(" ")
-        print("Um die Frequenz einzugeben, gebe")
-        print("einfach eine beliebeige Zahl ein")
-        print("Dannach erscheint auch die")
-        print("Möglichkeit den Duty Cycle")
-        print("einzugeben. Probiere es aus:")        
-
-        #Eingabe
-        x = input().lower()
-
-        #Auswertung
+        # Start
         if x == 'start':
             try:
                 GPIO.cleanup()
                 time.sleep(0.5)
-                GPIO.setwarnings(False)
                 GPIO.setmode(GPIO.BOARD)
                 GPIO.setup(i, GPIO.OUT)
                 if (k != 0):
@@ -223,104 +207,109 @@ while(1):
                 time.sleep(0.5)
                 p = GPIO.PWM(i, y)
                 p.stop()
+                p = GPIO.PWM(i, y)
                 time.sleep(0.5)
                 p.start(z)
-                print("---------------------------------")
-                print("Das Programm wurde gestartet")
-                print("---------------------------------")
+                stroke()
+                print("Program started")
+                stroke()
                 continue
             except:
-                print("---------------------------------")
-                print("Gib zuerst die Variablen ein!")
-                print("---------------------------------")
+                stroke()
+                print("Do setup first")
+                stroke()
                 continue
 
-        #Ende
-        if x == 'ende':
-            GPIO.cleanup()
-            print("---------------------------------")
-            print("Das Programm wurde beendet")
-            print("---------------------------------")
-            print("---------------------------------")
-            KILL = 1
-            break
+        # Exit
+        if x == 'exit':
+            exitsetps()
 
-        #Pause
+        # Pause
         if x == 'pause':
             try:
                 p.stop()
-                print("---------------------------------")
-                print("Das Programm wurde pausiert")
-                print("---------------------------------")
+                stroke()
+                print("Program paused")
+                stroke()
                 continue
             except:
-                print("---------------------------------")
-                print("Du kannst nichts pausieren,")
-                print("wenn nichts läuft :o")
-                print("---------------------------------")
-                time.sleep(0.2)
+                stroke()
+                print("Nothing to pause")
+                stroke()
                 continue
+        #Help
+        if x == '?':
+            info2()
+            continue
             
-        #Abfrage-Werte
-        if x == 'werte':
+        # Value
+        if x == 'value':
             try:
-                print("---------------------------------")
-                print("Frequenz auf", wert,"&")
-                print("Duty Cycle auf", z,"gestellt")
-                print("---------------------------------")
-                time.sleep(2)
+                stroke()
+                print("Frequency :", wert)
+                print("Duty cycle:", z)
+                print("PWM-Pin   :", i)
+                if (k != 0):
+                    print("Input Pin :", k)
+                else:
+                    print("Input Pin :")
+                
+                stroke()
                 continue
             except:
-                print("Keine Werte vorhanden")
-                print("---------------------------------")
-                time.sleep(0.2)
+                print("Frequency :")
+                print("Duty cycle:" )
+                print("PWM-Pin   :", i)
+                if (k != 0):
+                    print("Input Pin :", k)
+                else:
+                    print("Input Pin :")
+                stroke()
                 continue
-                
-        #Eingabe DC
+
         try:
             y = int(x)
-            print("---------------------------------")
-            print("Duty Cycle:")
-            w = input()
+        except:
+            checkInpMessage()
+            continue
+
+        # Freq 0
+        if y == 0:
+            stroke()
+            print("Frequency can not be 0")
+            stroke()
+            continue
+        
+        # Input DC
+        stroke()
+        print("Duty Cycle:")
+        w = input('> ')
+        exitnow()
+            
+        try:
+            time.sleep(0.1)
             z = int(w)
             wert = x
         except:
-            print("---------------------------------")
-            print("Bitte Eingabe prüfen!")
-            print("---------------------------------")
+            checkInpMessage()
             continue
 
-        #Prüfen auf Eingabe von Null
-        if z == 0 or y == 0:
-            
-            # Beenden durch eingabe von zwei Nullen
-            if z == 0 and y == 0:
-                GPIO.cleanup()
-                print("    Das Programm wurde beendet   ")
-                print("---------------------------------")
-                print("-----Code by Maurice Seifert-----")
-                print("---------------------------------")
-                KILL = 1
-                time.sleep(0.2)
-                break
-
-            #Fehlermeldung bei Wert Null
-            print("---------------------------------")
-            print("Die Werte 0 im Duty Cycle und/oder")
-            print("in der Frequenz sind NICHT möglich!")
-            print("---------------------------------")
+        # DC 0
+        if z == 0:
+            stroke()
+            print("Duty cycle can not be 0")
+            stroke()
             continue
 
-        #Prüfen auf Eingabe höher als 100
+        # if Duty Cycle higher than 100 print warning
         if z > 100:
-            print("---------------------------------")
-            print("Der Wert beim Duty Cycle darf")
-            print("nicht höher als 100 sein")
-            print("---------------------------------")
+            stroke()
+            print("Duty cycle can not be over 100%")
+            stroke()
             continue
 
-        #Ausgabe
-        print("---------------------------------")
-        print("Frequenz auf", x,"&")
-        print("Duty Cycle auf", z,"gestellt")
-        print("---------------------------------")
+        # print for command 'value'
+        stroke()
+        print("Frequency :", wert)
+        print("Duty cycle:", z)
+        stroke()
