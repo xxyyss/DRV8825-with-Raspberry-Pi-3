@@ -6,13 +6,17 @@ import _thread as thread
 
 
 # Variables
-o = 0
-k = 0
-w = 0
 h = 0
-l = 0
 j = 0
+k = 0
+l = 0
+o = 0
+#p
+w = 0
+#x
 y = 1
+#z
+
 
 # configuration
 GPIO.setwarnings(True)
