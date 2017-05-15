@@ -1,10 +1,12 @@
 ChangeLog
 =========
 
-v0.0.10
+v0.1.0
 ------------
-- Added message for motor driver overheat
+- Added 'to lower case'
 - Bug fixes
+- Design optimization
+- Performance optimizations
 
 v0.0.9
 ------------

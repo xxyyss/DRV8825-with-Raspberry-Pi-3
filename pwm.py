@@ -36,7 +36,6 @@ time.sleep(2)
 print("---------------------------------")
 print("|          Willkommen           |")
 print("---------------------------------")
-time.sleep(0.5)
 print("Du musst zuerst das Setup")
 print("(bei jedem Start des Programms)")
 print("durchführen. Beim Setup musst du")
@@ -54,7 +53,6 @@ print("in Arbeit, soll aber")
 print("voraussichtlich durch ein GPIO-")
 print("Inputsignal auf die Überhitzung")
 print("des Motortreibes hinweisen.")
-time.sleep(1.5)
 print("---------------------------------")
 print("Info: Du kannst bei jeder Eingabe,")
 print("eine Null eingeben. Nach Eingabe")
@@ -63,7 +61,7 @@ print("beendet sich das Progamm")
 print("---------------------------------")
 time.sleep(0.5)
 print("Starte SETUP ...")
-time.sleep(1.5)
+time.sleep(2)
 # Erster Start vom Setup
 print("---------------------------------")
 print("|       |    SETUP      |       |")
@@ -78,27 +76,25 @@ while(1):
     
     # Outout-Pin umstellen
     try:
-        print("PWM-Kanal (Standard: 12):")
-        h = input()
+        h = input('PWM-Kanal (Standard: 12): ')
         i = int(h)
     except:
         print("---------------------------------")
         print("Bitte Eingabe prüfen!")
         print("---------------------------------")
-        time.sleep(1.5)
+        time.sleep(0.5)
         continue
     print("---------------------------------")
 
     # Input-Pin umstellen
     try:
-        print("Input-Pin (Standard: 11):")
-        j = input()
+        j = input('Input-Pin (Standard: 11): ')
         k = int(j)
     except:
         print("---------------------------------")
         print("Bitte Eingabe prüfen!")
         print("---------------------------------")
-        time.sleep(1.5)
+        time.sleep(0.5)
         continue
 
     # Sicheres Beenden durch eingeben von zwei Nullen
@@ -115,7 +111,7 @@ while(1):
         print("Input und PWM-Pin können NICHT")
         print("auf den gleichen Pins sein!")
         print("---------------------------------")
-        time.sleep(1.5)
+        time.sleep(0.5)
         continue
     
     # Abbrechen bei falschen Pin-Werten
@@ -151,21 +147,17 @@ while(1):
     
     # Abfragen der Setupeinstellung
     print("---------------------------------")
-    print("Output Pin:", i)
-    print("Input Pin:", k)
-    print("---------------------------------")              
-    print("Möchtest du fortführen? [N/J]")
-    l = input()
+    l = input('Möchtest du fortführen? [N/J]: ').lower()
 
     #NEIN
-    if l == "N":
+    if l == "n":
         print("---------------------------------")
         print("Setup wird neu gestartet")
         print("---------------------------------")
         continue
 
     #JA
-    if l == "J":
+    if l == "j":
         print("Die Einstellung wurde übernommen")
         print("---------------------------------")
         print("Programm wird gestartet")
@@ -173,12 +165,12 @@ while(1):
         print("---------------------------------")
         
     #Andere Eingaben
-    if l != ("J" or "N"):
+    if l != ("j" or "n"):
         print("---------------------------------")
         print("Die Eingabe '",l,"' ungültig")
         print("Bitte Eingabe prüfen!")
         print("---------------------------------")
-        time.sleep(1.5)
+        time.sleep(0.5)
         print("Setup wird neu gestartet")
         print("---------------------------------")
         continue
@@ -215,10 +207,10 @@ while(1):
         
 
         #Eingabe
-        x = input()
+        x = input().lower()
 
         #Auswertung
-        if x == 'Start':
+        if x == 'start':
             try:
                 p = GPIO.PWM(i, y)
                 p.start(z)
@@ -231,11 +223,11 @@ while(1):
                 print("---------------------------------")
                 print("Gib zuerst die Variablen ein!")
                 print("---------------------------------")
-                time.sleep(1.5)
+                time.sleep(0.5)
                 continue
 
         #Ende
-        if x == 'Ende':
+        if x == 'ende':
             GPIO.cleanup()
             print("---------------------------------")
             print("Das Programm wurde beendet")
@@ -245,20 +237,20 @@ while(1):
             break
 
         #Pause
-        if x == 'Pause':
+        if x == 'pause':
             try:
                 p.stop()
                 print("---------------------------------")
                 print("Das Programm wurde pausiert")
                 print("---------------------------------")
-                time.sleep(1.5)
+                time.sleep(0.5)
                 continue
             except:
                 print("---------------------------------")
                 print("Du kannst nichts pausieren,")
                 print("wenn nichts läuft :o")
                 print("---------------------------------")
-                time.sleep(1.5)
+                time.sleep(0.5)
                 continue
 
         #Eingabe DC
@@ -272,7 +264,7 @@ while(1):
             print("---------------------------------")
             print("Bitte Eingabe prüfen!")
             print("---------------------------------")
-            time.sleep(1.5)
+            time.sleep(0.5)
             continue
 
         #Prüfen auf Eingabe von Null
@@ -294,7 +286,7 @@ while(1):
             print("Die Werte 0 im Duty Cycle und/oder")
             print("in der Frequenz sind NICHT möglich!")
             print("---------------------------------")
-            time.sleep(1.5)
+            time.sleep(0.5)
             continue
 
         #Prüfen auf Eingabe höher als 100
@@ -303,7 +295,7 @@ while(1):
             print("Der Wert beim Duty Cycle darf")
             print("nicht höher als 100 sein")
             print("---------------------------------")
-            time.sleep(1.5)
+            time.sleep(0.5)
             continue
 
         #Ausgabe
@@ -311,4 +303,4 @@ while(1):
         print("Frequenz auf", x,"&")
         print("Duty Cycle auf", z,"gestellt")
         print("---------------------------------")
-        time.sleep(1.5)
+        time.sleep(0.5)
