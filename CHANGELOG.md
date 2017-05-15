@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.0.4
+------------
+- Design optimization and bug fixes
+
 v0.0.3
 ------------
 - 'Zerozero'-Bug fixed

@@ -13,6 +13,7 @@ while 1:
 	
     if x == 'Ende':
         GPIO.cleanup()
+        print("---------------------------------")
         print("Das Programm wurde Beendet")
         print("---------------------------------")
         print("---------------------------------")
@@ -21,8 +22,11 @@ while 1:
         try:
             p.stop()
             print("---------------------------------")
+            print("Das Programm wurde Pausiert")
+            print("---------------------------------")
             continue
         except:
+            print("---------------------------------")
             print("Du kannst nichts Pausieren wenn nichts läuft :o")
             print("---------------------------------")
             continue
@@ -35,8 +39,10 @@ while 1:
         z = int(w)
         
     except:
+        print("---------------------------------")
         print("Bitte Eingabe prüfen!")
         print("---------------------------------")
+        
         continue
         
     if z == 0 or y == 0:
@@ -48,11 +54,17 @@ while 1:
             print("-----Code by Maurice Seifert-----")
             print("---------------------------------")
             break
-        
+        print("---------------------------------")
         print("Die Werte 0 im Duty Cycle und/oder in der Frequenz sind NICHT möglich!")
         print("---------------------------------")
         continue
-    
+    if z > 101:
+        print("---------------------------------")
+        print("Der Wert beim Duty Cycle darf nicht höher als 100 sein")
+        print("---------------------------------")
+        continue
+
+    print("---------------------------------")
     print("Frequenz auf", x,"& Duty Cycle auf", z,"gestellt")
     print("---------------------------------")
     p = GPIO.PWM(12, y)
