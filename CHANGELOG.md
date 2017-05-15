@@ -1,6 +1,12 @@
 ChangeLog
 =========
 
+v0.1.2
+------------
+- Fatal error fixed
+- Performance optimizations
+- Small improvements
+
 v0.1.1
 ------------
 - Added 'Visits to the values'

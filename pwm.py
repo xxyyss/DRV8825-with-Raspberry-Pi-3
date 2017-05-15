@@ -17,6 +17,7 @@ def overheated():
     GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
     while(1):
         # Sicheres Beenden durch veränderung der KILL-Variablen
+        time.sleep(1)
         if KILL == 1:
             return
         try:
@@ -160,6 +161,8 @@ while(1):
         print("Die Einstellung wurde übernommen")
         print("---------------------------------")
         print("Programm wird gestartet")
+        #Starte thread:
+        thread.start_new_thread(overheated,())
         time.sleep(1)
         print("---------------------------------")
         
@@ -182,10 +185,6 @@ while(1):
         #Sicheres Beenden durch veränderung der KILL-Variablen
         if KILL == 1:
             break
-    
-        #Setup durchführen
-        GPIO.setup(i, GPIO.OUT)
-        GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
         #Abfrage
         print("Diese Befehle kannst du")
@@ -200,11 +199,7 @@ while(1):
         print("einfach eine beliebeige Zahl ein")
         print("Dannach erscheint auch die")
         print("Möglichkeit den Duty Cycle")
-        print("einzugeben. Probiere es aus:")
-        
-        #Noch im Test:
-        thread.start_new_thread(overheated,())
-        
+        print("einzugeben. Probiere es aus:")        
 
         #Eingabe
         x = input().lower()
@@ -212,7 +207,16 @@ while(1):
         #Auswertung
         if x == 'start':
             try:
+                GPIO.cleanup()
+                time.sleep(0.5)
+                GPIO.setwarnings(False)
+                GPIO.setmode(GPIO.BOARD)
+                GPIO.setup(i, GPIO.OUT)
+                GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+                time.sleep(0.5)
                 p = GPIO.PWM(i, y)
+                p.stop()
+                time.sleep(0.5)
                 p.start(z)
                 print("---------------------------------")
                 print("Das Programm wurde gestartet")
@@ -247,6 +251,7 @@ while(1):
                 print("Du kannst nichts pausieren,")
                 print("wenn nichts läuft :o")
                 print("---------------------------------")
+                time.sleep(0.2)
                 continue
             
         #Abfrage-Werte
