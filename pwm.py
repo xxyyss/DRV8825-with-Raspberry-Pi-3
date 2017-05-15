@@ -8,7 +8,7 @@ GPIO.setup(12, GPIO.OUT)
 
 
 while 1:
-    print ("Frequenz eingeben (dannach Duty Cycle), 'Ende' zum Beenden oder 'Stop' zum Pausieren")
+    print ("Frequenz eingeben (danach Duty Cycle), 'Ende' zum Beenden oder 'Pause' zum Pausieren")
     x = input()
 	
     if x == 'Ende':
@@ -17,24 +17,29 @@ while 1:
         print("---------------------------------")
         print("---------------------------------")
         break
-    if x == 'Stop':
-        p.stop()
-        print("---------------------------------")
-        continue
+    if x == 'Pause':
+        try:
+            p.stop()
+            print("---------------------------------")
+            continue
+        except:
+            print("Du kannst nichts Pausieren wenn nichts läuft :o")
+            print("---------------------------------")
+            continue
     
     try:
         y = int(x)
         print("---------------------------------")
         print("Duty Cycle:")
-        x = input()
-        z = int(x)
+        w = input()
+        z = int(w)
         
     except:
         print("Bitte Eingabe prüfen!")
         print("---------------------------------")
         continue
         
-    print("Frequenz auf",x, "& Duty Cycle auf", z,"gestellt")
+    print("Frequenz auf", x,"& Duty Cycle auf", z,"gestellt")
     print("---------------------------------")
     p = GPIO.PWM(12, y)
     p.start(z)
