@@ -60,7 +60,7 @@ def exitProgMessage():
 # invalid pin values Message
 def PinInfoMessage():
     stroke()
-    print("PWM-Pins possible  : 1, 12, 23, 24, 26, 32, 33, 35")
+    print("PWM-Pins possible  : only 12")
     print("Input-Pins possible: 1, 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
     stroke()
 
@@ -80,7 +80,6 @@ def exitnow():
         exitsetps()
 
 def exitsetps():
-        GPIO.cleanup()
         exitProgMessage()
         time.sleep(0.01)
         raise SystemExit
@@ -114,14 +113,7 @@ stroke()
 while(1):
         
     # set Output-Pin
-    h = input('Choose PWM-Pin: ')
-    exitnow()
-    try:
-        i = int(h)
-    except:
-        checkInpMessage()
-        continue
-    stroke()
+    print('PWM-Pin: 12')
 
     # set Input-Pin
     j = input('Choose Input-Pin or enter 0: ')
@@ -133,22 +125,8 @@ while(1):
         checkInpMessage()
         time.sleep(0.2)
         continue
-
-    # Cancel when input and output on same pin
-    if(i == k):
-        stroke()
-        print("Input and output on same pin")
-        print("Going to setup again...")
-        stroke()
-        time.sleep(0.2)
-        continue
     
     # Cancel with invalid pin values
-    if(i != 12 and i != 32 and i != 33 and i != 35 and i != 18 \
-       and i != 23 and i != 24 and i != 1 and i!= 26):
-        PinInfoMessage()
-        time.sleep(0.2)
-        continue
     
     if(k != 8 and k != 10 and k != 16 and k != 18 and k != 22 \
        and k != 36 and k != 37 and k != 31 and k != 29 \
@@ -198,16 +176,15 @@ while(1):
         # Start
         if x == 'start':
             try:
-                GPIO.cleanup()
                 time.sleep(0.5)
                 GPIO.setmode(GPIO.BOARD)
-                GPIO.setup(i, GPIO.OUT)
+                GPIO.setup(12, GPIO.OUT)
                 if (k != 0):
                     GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
                 time.sleep(0.5)
-                p = GPIO.PWM(i, y)
+                p = GPIO.PWM(12, y)
                 p.stop()
-                p = GPIO.PWM(i, y)
+                p = GPIO.PWM(12, y)
                 time.sleep(0.5)
                 p.start(z)
                 stroke()
@@ -248,7 +225,7 @@ while(1):
                 stroke()
                 print("Frequency :", wert)
                 print("Duty cycle:", z)
-                print("PWM-Pin   :", i)
+                print("PWM-Pin   :", 12)
                 if (k != 0):
                     print("Input Pin :", k)
                 else:
@@ -259,7 +236,7 @@ while(1):
             except:
                 print("Frequency :")
                 print("Duty cycle:" )
-                print("PWM-Pin   :", i)
+                print("PWM-Pin   :", 12)
                 if (k != 0):
                     print("Input Pin :", k)
                 else:

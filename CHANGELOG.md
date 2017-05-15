@@ -1,5 +1,9 @@
 ChangeLog
 =========
+v0.2.1
+------------
+- Remove PWM-Pin selection
+- Remove GPIO.cleanup()
 
 v0.2.0
 ------------
