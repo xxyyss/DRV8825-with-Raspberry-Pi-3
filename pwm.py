@@ -12,9 +12,7 @@ GPIO.setmode(GPIO.BOARD)
 
 # Erster Start vom Setup
 print("---------------------------------")
-print("---------------------------------")
 print("|       |    SETUP      |       |")
-print("---------------------------------")
 print("---------------------------------")
 
 # Schleife wegen beenden des Programmes
@@ -26,7 +24,7 @@ while(1):
     
     # Outout-Pin umstellen
     try:
-        print("Output-Pin (Standart: 12):")
+        print("PWM-Kanal (Standart: 12):")
         h = input()
         i = int(h)
     except:
@@ -60,7 +58,8 @@ while(1):
     # Abbrechen bei 2 Gleichen Werten
     if(i == k):
         print("---------------------------------")
-        print("Input und Output können NICHT auf dem gleichen Pins sein!")
+        print("Input und PWM-Kanal können NICHT")
+        print("auf den gleichen Pins sein!")
         print("---------------------------------")
         time.sleep(1.5)
         continue
@@ -69,12 +68,13 @@ while(1):
     if(i != 12 and i != 32 and i != 33 and i != 35 and i != 0 \
        and i != 23 and i != 24 and i != 1 and i!= 26):
         print("---------------------------------")
-        print("Im Output gehen nur die Pins 12,")
-        print("32, 33 & 35. Im Input gehen nur")
-        print("die Pins mit der der Nummer 8, 10")
-        print("16, 18, 22, 36, 37, 3, 29, 15,")
+        print("Im PWM-Kanal gehen nur die Pins")
+        print("12, 32, 33 & 35. Im Input gehen ")
+        print("nur die Pins mit der der Nummer 8,")
+        print("10, 16, 18, 22, 36, 37, 3, 29, 15,")
         print("13, 11 & 7. Die Pins 23, 24,")
-        print("26 & 1 sind für In oder Output möglich")
+        print("26 & 1 sind für In oder PWM-Kanal")
+        print("möglich")
         print("---------------------------------")
         time.sleep(1.5)
         continue
@@ -84,12 +84,13 @@ while(1):
        and k != 15 and k != 13 and k != 11 and k != 7 and k != 23 \
        and k != 24 and k != 26 and k != 1 and k != 0):
         print("---------------------------------")
-        print("Im Output gehen nur die Pins 12,")
-        print("32, 33 & 35. Im Input gehen nur")
-        print("die Pins mit der der Nummer 8, 10")
-        print("16, 18, 22, 36, 37, 3, 29, 15,")
+        print("Im PWM-Kanal gehen nur die Pins")
+        print("12, 32, 33 & 35. Im Input gehen ")
+        print("nur die Pins mit der der Nummer 8,")
+        print("10, 16, 18, 22, 36, 37, 3, 29, 15,")
         print("13, 11 & 7. Die Pins 23, 24,")
-        print("26 & 1 sind für In oder Output möglich")
+        print("26 & 1 sind für In oder PWM-Kanal")
+        print("möglich")
         print("---------------------------------")
         time.sleep(1.5)
         continue
@@ -112,7 +113,7 @@ while(1):
 
     #JA
     if l == "J":
-        print("Deine Einstellung wurde übernommen")
+        print("Die Einstellung wurde übernommen")
         print("---------------------------------")
         print("Programm wird gestartet")
         time.sleep(3)
@@ -139,16 +140,47 @@ while(1):
 
     #Start des eigentlichen Programmes
     while 1:
+        # Setup durchführen
+        GPIO.setup(i, GPIO.OUT)
+        GPIO.setup(k, GPIO.IN)
 
         #Abfrage
-        print("Frequenz eingeben (danach Duty Cycle),")
-        print("'Ende' zum Beenden oder 'Pause' zum Pausieren")
+        print("Diese Befehle kannst du")
+        print("hier anwenden:")
+        print(" ")
+        print("'Start' startet die Anwendung")
+        print("'Pause' pausiert die Anwendung")
+        print("'Ende' beendet die Anwendung")
+        print(" ")
+        print("Um die Frequenz einzugeben, gebe")
+        print("einfach eine beliebeige Zahl ein")
+        print("Dannach erscheint auch die")
+        print("Möglichkeit den Duty Cycle")
+        print("einzugeben. Probiere es aus:")
         
         #Noch im Test:
         # thread.start_new_thread(show,())
 
         #Eingabe
         x = input()
+
+        # Auswertung
+        if x == 'Start':
+            try:
+                p = GPIO.PWM(i, y)
+                p.start(z)
+                time.sleep(1.5)
+                print("---------------------------------")
+                print("Das Programm wurde gestartet")
+                print("---------------------------------")
+                time.sleep(1)
+                continue
+            except:
+                print("---------------------------------")
+                print("Gib zuerst die Variablen ein!")
+                print("---------------------------------")
+                time.sleep(1.5)
+                continue
 
         #Ende
         if x == 'Ende':
@@ -226,13 +258,4 @@ while(1):
         print("Frequenz auf", x,"&")
         print("Duty Cycle auf", z,"gestellt")
         print("---------------------------------")
-        
-        # Setup durchführen
-        GPIO.setup(i, GPIO.OUT)
-        GPIO.setup(k, GPIO.IN)
-
-        # Auswertung
-        p = GPIO.PWM(i, y)
-        p.start(z)
         time.sleep(1.5)
-
