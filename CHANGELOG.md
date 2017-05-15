@@ -1,9 +1,15 @@
 ChangeLog
 =========
 
+v0.0.7
+------------
+- Bug fixes
+- added comments
+
 v0.0.6
 ------------
-- Bug fixes and performance optimizations
+- Bug fixes
+- performance optimizations
 
 v0.0.5
 ------------
