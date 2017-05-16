@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.3.1
+------------
+- Auto-'clear' at the end and at appropriate positions of the programs 
+
 v0.3.0
 ------------
 - Software-PWM changed to Hardware-PWM
