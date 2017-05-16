@@ -4,7 +4,6 @@ import RPi.GPIO as GPIO
 import time
 import _thread as thread
 
-
 # Variables
 h = 0
 j = 0
@@ -16,7 +15,6 @@ w = 0
 #x
 y = 1
 #z
-
 
 # configuration
 GPIO.setwarnings(True)
@@ -66,7 +64,7 @@ def exitProgMessage():
 def PinInfoMessage():
     stroke()
     print("PWM-Pins possible  : only 12")
-    print("Input-Pins possible: 1, 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
+    print("Input-Pins possible: 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
     stroke()
 
 def stroke():
@@ -95,20 +93,19 @@ def InValCheck():
     
 # Start thread for checking fault-output of driver
 def overheated():
-    # Setup of Input
-    GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-    time.sleep(1)
-    # Process data and print warning if necessary
-    try:
-        if GPIO.input(k) == 1:
-            o = 0
+    while(1):
+        print("Test")
+        time.sleep(1)
+        try:
+            if GPIO.input(k) == 1:
+                o = 0
             if GPIO.input(k) == 0 and o == 0:
                 stroke()
                 print("!!! WARNING: DRIVER MALFUNCTION !!!")
                 stroke()
                 o = 1
-    except:
-        time.sleep(0)
+        except:
+            time.sleep(0)
         
 # Here starts the program
 stroke()
@@ -141,7 +138,7 @@ while(1):
     if(k != 8 and k != 10 and k != 16 and k != 18 and k != 22 \
        and k != 36 and k != 37 and k != 31 and k != 29 \
        and k != 15 and k != 13 and k != 11 and k != 7 and k != 23 \
-       and k != 24 and k != 26 and k != 1 and k != 0):
+       and k != 24 and k != 26 and k != 0):
         PinInfoMessage()
         time.sleep(0.2)
         continue
@@ -161,17 +158,17 @@ while(1):
     # Yes
     if l == "y":
         print("Setup complete")
-        time.sleep(0.2)
-        # start thread:
-        if (k != 0):
-            thread.start_new_thread(overheated,())
         # Setup
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(12, GPIO.OUT)
-        if (k != 0):
-            GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
         p = GPIO.PWM(12, 1)
         p.stop()
+        # start thread:
+        time.sleep(1)
+        if (k != 0):
+            GPIO.setup(k, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+            time.sleep(1)
+            thread.start_new_thread(overheated,())
         time.sleep(0.5)
         info1()
         

@@ -4,6 +4,7 @@ ChangeLog
 v0.2.2
 ------------
 - Clean up code
+- Bug fixes
 
 v0.2.1
 ------------
