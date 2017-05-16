@@ -3,7 +3,7 @@ ChangeLog
 
 v0.3.1
 ------------
-- Auto-'clear' at the end and at appropriate positions of the programs 
+- Auto-'clear' at the end and at appropriate positions of the program 
 
 v0.3.0
 ------------
