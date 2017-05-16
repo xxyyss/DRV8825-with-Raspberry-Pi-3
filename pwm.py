@@ -53,6 +53,7 @@ def info1():
     print("'pause' stops the PWM")
     print("'exit' closes the program")
     print("'value' shows settings")
+    print("'setup' go back to Setup")
     print("'?' shows help")
     print(" ")
     print("To input a new frequency enter a number. After that you can set the duty cicle")
@@ -70,6 +71,7 @@ def info2():
     print("'pause' stops the PWM")
     print("'exit' closes the program")
     print("'value' shows settings")
+    print("'setup' go back to Setup")
     
 # Check Input Message
 def checkInpMessage():
@@ -247,6 +249,11 @@ while(1):
                 InValCheck()
                 stroke()
                 continue
+        if x == 'setup':
+            stroke()
+            print("Going to setup")
+            stroke()
+            break
 
         try:
             y = int(x)
