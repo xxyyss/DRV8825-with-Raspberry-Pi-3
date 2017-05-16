@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 import pigpio
 import time
 import _thread as thread
+import os
 
 # Variables
 #a
@@ -20,6 +21,10 @@ y = 1
 #z
 
 # configuration
+def clear():
+    os.system('cls' if os.name=='nt' else 'clear')
+clear()
+
 def stroke():
     print("---------------------------------")
     
@@ -30,11 +35,13 @@ def exitsetps():
     stroke()
     if b == 1:
         pi.hardware_PWM(18, 0, 0)
-    time.sleep(0.01)
+    time.sleep(1)
+    clear()
     raise SystemExit
     
 pi = pigpio.pi()
 if not pi.connected:
+    clear()
     stroke()
     stroke()
     print("You have to start pigpio first with 'sudo pigpoi'")
