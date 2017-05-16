@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import RPi.GPIO as GPIO
+import pigpio
 import time
 import _thread as thread
 
 # Variables
+#a
+b = 0
 h = 0
 j = 0
 k = 0
@@ -17,8 +20,29 @@ y = 1
 #z
 
 # configuration
+def stroke():
+    print("---------------------------------")
+    
+def exitsetps():
+    stroke()
+    print("Closing program")
+    stroke()
+    stroke()
+    if b == 1:
+        pi.hardware_PWM(18, 0, 0)
+    time.sleep(0.01)
+    raise SystemExit
+    
+pi = pigpio.pi()
+if not pi.connected:
+    stroke()
+    stroke()
+    print("You have to start pigpio first with 'sudo pigpoi'")
+    exitsetps()
 GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BOARD)
+pigpio.exceptions = True
+pi = pigpio.pi() 
 
 # Information 1
 def info1():
@@ -53,22 +77,12 @@ def checkInpMessage():
     print("Check input")
     stroke()
     
-# Exit Program Message
-def exitProgMessage():
-    stroke()
-    print("Closing program")
-    stroke()
-    stroke()
-    
 # invalid pin values Message
 def PinInfoMessage():
     stroke()
     print("PWM-Pins possible  : only 12")
     print("Input-Pins possible: 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
     stroke()
-
-def stroke():
-    print("---------------------------------")
 
 def exitnow():
     if k == 'exit':
@@ -80,11 +94,6 @@ def exitnow():
     if j == 'exit':
         exitsetps()
 
-def exitsetps():
-        exitProgMessage()
-        time.sleep(0.01)
-        raise SystemExit
-
 def InValCheck():
     if (k != 0):
         print("Input Pin :", k)
@@ -94,7 +103,6 @@ def InValCheck():
 # Start thread for checking fault-output of driver
 def overheated():
     while(1):
-        print("Test")
         time.sleep(1)
         try:
             if GPIO.input(k) == 1:
@@ -160,9 +168,6 @@ while(1):
         print("Setup complete")
         # Setup
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(12, GPIO.OUT)
-        p = GPIO.PWM(12, 1)
-        p.stop()
         # start thread:
         time.sleep(1)
         if (k != 0):
@@ -190,13 +195,11 @@ while(1):
         # Start
         if x == 'start':
             try:
-                p.stop()
-                p = GPIO.PWM(12, y)
-                time.sleep(0.5)
-                p.start(z)
+                pi.hardware_PWM(18, y, z) 
                 stroke()
                 print("Program started")
                 stroke()
+                b = 1
                 continue
             except:
                 stroke()
@@ -210,13 +213,14 @@ while(1):
 
         # Pause
         if x == 'pause':
-            try:
-                p.stop()
+            if b == 1:
+                pi.hardware_PWM(18, 0, 0)
                 stroke()
                 print("Program paused")
                 stroke()
+                b = 0
                 continue
-            except:
+            if b == 0:
                 stroke()
                 print("Nothing to pause")
                 stroke()
@@ -231,7 +235,7 @@ while(1):
             try:
                 stroke()
                 print("Frequency :", wert)
-                print("Duty cycle:", z)
+                print("Duty cycle:", a)
                 print("PWM-Pin   :", 12)
                 InValCheck()
                 stroke()
@@ -265,7 +269,8 @@ while(1):
             
         try:
             time.sleep(0.1)
-            z = int(w)
+            a = int(w)
+            z = a * 10000
             wert = x
         except:
             checkInpMessage()
@@ -279,7 +284,7 @@ while(1):
             continue
 
         # if Duty Cycle higher than 100 print warning
-        if z > 100:
+        if z > 1000000:
             stroke()
             print("Duty cycle can not be over 100%")
             stroke()
@@ -288,5 +293,5 @@ while(1):
         # print for command 'value'
         stroke()
         print("Frequency :", wert)
-        print("Duty cycle:", z)
+        print("Duty cycle:", a)
         stroke()
