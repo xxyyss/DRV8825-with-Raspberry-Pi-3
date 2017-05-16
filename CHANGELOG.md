@@ -1,6 +1,13 @@
 ChangeLog
 =========
 
+v0.3.0
+------------
+- Software-PWM changed to Hardware-PWM
+	- pigpio added (for output)
+	- RPi.GPIO removed (for output)
+- Added Setup-function
+
 v0.2.2
 ------------
 - Clean up code
@@ -8,8 +15,8 @@ v0.2.2
 
 v0.2.1
 ------------
-- Remove PWM-Pin selection
-- Remove GPIO.cleanup()
+- PWM-Pin selection removed
+- GPIO.cleanup() removed
 
 v0.2.0
 ------------
@@ -20,9 +27,9 @@ v0.2.0
 - Added help function
 - translation to English
 - clean up comments
-- Remove the kill variable
+- The kill variable removed
 - Added 'exit everywhere' funktion
-- Remove function to exit with to 0
+- Function to exit with to 0 removed
 
 v0.1.3
 ------------
