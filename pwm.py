@@ -13,6 +13,7 @@ c = 0
 d = 0
 #e
 f = 0
+g = 0
 h = 0
 j = 0
 k = 0
@@ -122,6 +123,8 @@ def InValCheck():
 # Start thread for checking fault-output of driver
 def overheated():
     while(1):
+        if g == 1:
+            break
         time.sleep(1)
         try:
             if GPIO.input(k) == 1:
@@ -229,6 +232,7 @@ while(1):
         # Setup
         GPIO.setup(e, GPIO.OUT)
         GPIO.output(e, 0)
+        g = 0
         # start thread:
         time.sleep(1)
         if (k != 0):
@@ -317,9 +321,13 @@ while(1):
                 InValCheck()
                 stroke()
                 continue
+
+        # Go to Setup
         if x == 'setup':
             stroke()
             print("Going to setup")
+            pi.hardware_PWM(18, 0, 0)
+            g = 1
             stroke()
             break
 

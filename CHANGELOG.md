@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.4.2
+------------
+- 'Go to Setup' Bug fix
+
 v0.4.1
 ------------
 - Help function was extended
