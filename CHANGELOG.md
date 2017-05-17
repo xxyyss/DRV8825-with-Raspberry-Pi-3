@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.4.0
+------------
+- Change direction with 'dir'
+
 v0.3.1
 ------------
 - Auto-'clear' at the end and at appropriate positions of the program 
@@ -10,7 +14,7 @@ v0.3.0
 - Software-PWM changed to Hardware-PWM
 	- pigpio added (for output)
 	- RPi.GPIO removed (for output)
-- Added Setup-function
+- Added 'Back to Setup'-function
 
 v0.2.2
 ------------

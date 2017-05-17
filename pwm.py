@@ -51,9 +51,9 @@ if not pi.connected:
     stroke()
     print("You have to start pigpio first with 'sudo pigpoi'")
     exitsetps()
-GPIO.setwarnings(True)
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-pigpio.exceptions = True
+pigpio.exceptions = False
 pi = pigpio.pi() 
 
 # Information 1
