@@ -9,6 +9,10 @@ import os
 # Variables
 #a
 b = 0
+c = 0
+d = 0
+#e
+f = 0
 h = 0
 j = 0
 k = 0
@@ -36,7 +40,8 @@ def exitsetps():
     if b == 1:
         pi.hardware_PWM(18, 0, 0)
     time.sleep(1)
-    clear()
+    if c == 1:
+        clear()
     raise SystemExit
     
 pi = pigpio.pi()
@@ -60,6 +65,7 @@ def info1():
     print("'pause' stops the PWM")
     print("'exit' closes the program")
     print("'value' shows settings")
+    print("'dir' changes the direction")
     print("'setup' go back to Setup")
     print("'?' shows help")
     print(" ")
@@ -79,6 +85,7 @@ def info2():
     print("'exit' closes the program")
     print("'value' shows settings")
     print("'setup' go back to Setup")
+    print("'dir' changes the direction")
     
 # Check Input Message
 def checkInpMessage():
@@ -89,8 +96,9 @@ def checkInpMessage():
 # invalid pin values Message
 def PinInfoMessage():
     stroke()
-    print("PWM-Pins possible  : only 12")
-    print("Input-Pins possible: 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
+    print("PWM-Pins possible     : only 12")
+    print("Input-Pins possible   : 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
+    print("Direction-Pin possible: 7, 8, 10, 11, 13, 15, 16, 18, 22, 23, 24, 26, 29, 36, 37")
     stroke()
 
 def exitnow():
@@ -101,6 +109,8 @@ def exitnow():
     if l == 'exit':
         exitsetps()
     if j == 'exit':
+        exitsetps()
+    if d == 'exit':
         exitsetps()
 
 def InValCheck():
@@ -125,6 +135,7 @@ def overheated():
             time.sleep(0)
         
 # Here starts the program
+c = 1
 stroke()
 print("https://github.com/mauricesifrt/DRV8825-with-Raspberry-Pi-3")
 time.sleep(0.5)
@@ -135,7 +146,7 @@ stroke()
 # Loop for terminating the program
 while(1):
         
-    # set Output-Pin
+    # set PWM-Pin
     print('PWM-Pin: 12')
     stroke()
 
@@ -149,15 +160,42 @@ while(1):
         checkInpMessage()
         time.sleep(0.2)
         continue
+    stroke()
+    # set Direction-Pin
+    d = input('Choose Direction-Pin: ')
+    exitnow()
+    time.sleep(0.1)
+    try:
+        e = int(d)
+    except:
+        checkInpMessage()
+        time.sleep(0.2)
+        continue
     
     # Cancel with invalid pin values
-    
     if(k != 8 and k != 10 and k != 16 and k != 18 and k != 22 \
        and k != 36 and k != 37 and k != 31 and k != 29 \
        and k != 15 and k != 13 and k != 11 and k != 7 and k != 23 \
        and k != 24 and k != 26 and k != 0):
         PinInfoMessage()
         time.sleep(0.2)
+        continue
+    
+    if(e != 8 and e != 10 and e != 16 and e != 18 and e != 22 \
+       and e != 36 and e != 37 and e != 31 and e != 29 \
+       and e != 15 and e != 13 and e != 11 and e != 7 and e != 23 \
+       and e != 24 and e != 26):
+        PinInfoMessage()
+        time.sleep(0.2)
+        continue
+    
+    #  Cancel when input and output on same pin
+    if(e == k):
+        stroke()
+        print("Input and output on same pin")
+        print("Going to setup again...")
+        stroke()
+        time.sleep(0.1)
         continue
     
     # Continue Setup
@@ -176,7 +214,8 @@ while(1):
     if l == "y":
         print("Setup complete")
         # Setup
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(e, GPIO.OUT)
+        GPIO.output(e, 0)
         # start thread:
         time.sleep(1)
         if (k != 0):
@@ -234,9 +273,20 @@ while(1):
                 print("Nothing to pause")
                 stroke()
                 continue
-        #Help
+        # Help
         if x == '?':
             info2()
+            continue
+        # Direction
+
+        if x == 'dir':
+            if f == 0:
+                GPIO.output(e, 1)
+            if f == 1:
+                GPIO.output(e, 0)
+            stroke()
+            print("Direction changed")
+            stroke()    
             continue
             
         # Value
