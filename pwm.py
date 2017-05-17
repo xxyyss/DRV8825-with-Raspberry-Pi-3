@@ -11,7 +11,7 @@ import os
 b = 0
 c = 0
 d = 0
-#e
+e = 0
 f = 0
 g = 0
 h = 0
@@ -66,7 +66,8 @@ def info1():
     print("'pause' stops the PWM")
     print("'exit' closes the program")
     print("'value' shows settings")
-    print("'dir' changes the direction")
+    if (e!= 0):
+        print("'dir' changes the direction")
     print("'setup' go back to Setup")
     print("'?' shows help")
     print(" ")
@@ -86,7 +87,8 @@ def info2():
     print("'exit' closes the program")
     print("'value' shows settings")
     print("'setup' go back to Setup")
-    print("'dir' changes the direction")
+    if (e!= 0):
+        print("'dir' changes the direction")
     
 # Check Input Message
 def checkInpMessage():
@@ -116,9 +118,13 @@ def exitnow():
 
 def InValCheck():
     if (k != 0):
-        print("Input Pin :", k)
+        print("Input Pin    :", k)
     else:
-        print("Input Pin :")
+        print("Input Pin    :")
+    if (e != 0):
+        ("Direction-Pin:", e)
+    else:
+        print("Direction-Pin:")
     
 # Start thread for checking fault-output of driver
 def overheated():
@@ -200,19 +206,20 @@ while(1):
     if(e != 8 and e != 10 and e != 16 and e != 18 and e != 22 \
        and e != 36 and e != 37 and e != 31 and e != 29 \
        and e != 15 and e != 13 and e != 11 and e != 7 and e != 23 \
-       and e != 24 and e != 26):
+       and e != 24 and e != 26 and e != 0):
         PinInfoMessage()
         time.sleep(0.2)
         continue
     
     #  Cancel when input and output on same pin
-    if(e == k):
-        stroke()
-        print("Input and output on same pin")
-        print("Going to setup again...")
-        stroke()
-        time.sleep(0.1)
-        continue
+    if (e != 0 and k != 0):
+        if(e == k):
+            stroke()
+            print("Input and output on same pin")
+            print("Going to setup again...")
+            stroke()
+            time.sleep(0.1)
+            continue
     
     # Continue Setup
     stroke()
@@ -230,8 +237,9 @@ while(1):
     if l == "y":
         print("Setup complete")
         # Setup
-        GPIO.setup(e, GPIO.OUT)
-        GPIO.output(e, 0)
+        if (e != 0):
+            GPIO.setup(e, GPIO.OUT)
+            GPIO.output(e, 0)
         g = 0
         # start thread:
         time.sleep(1)
@@ -294,30 +302,31 @@ while(1):
             continue
 
         # Direction
-        if x == 'dir':
-            if f == 0:
-                GPIO.output(e, 1)
-            if f == 1:
-                GPIO.output(e, 0)
-            stroke()
-            print("Direction changed")
-            stroke()    
-            continue
+        if e != 0:
+            if x == 'dir':
+                if f == 0:
+                    GPIO.output(e, 1)
+                if f == 1:
+                    GPIO.output(e, 0)
+                stroke()
+                print("Direction changed")
+                stroke()    
+                continue
             
         # Value
         if x == 'value':
             try:
                 stroke()
-                print("Frequency :", wert)
-                print("Duty cycle:", a)
-                print("PWM-Pin   :", 12)
+                print("Frequency    :", wert)
+                print("Duty cycle   :", a)
+                print("PWM-Pin      :", 12)
                 InValCheck()
                 stroke()
                 continue
             except:
-                print("Frequency :")
-                print("Duty cycle:" )
-                print("PWM-Pin   :", 12)
+                print("Frequency    :")
+                print("Duty cycle   :" )
+                print("PWM-Pin      :", 12)
                 InValCheck()
                 stroke()
                 continue
