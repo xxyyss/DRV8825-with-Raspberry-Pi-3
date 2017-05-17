@@ -1,6 +1,10 @@
 ChangeLog
 =========
 
+v0.4.1
+------------
+- Help function was extended
+
 v0.4.0
 ------------
 - Change direction with 'dir'

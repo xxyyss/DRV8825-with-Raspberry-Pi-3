@@ -133,6 +133,12 @@ def overheated():
                 o = 1
         except:
             time.sleep(0)
+
+def dosetup():
+    stroke()
+    print("Do setup first")
+    stroke()            
+            
         
 # Here starts the program
 c = 1
@@ -145,7 +151,7 @@ stroke()
 
 # Loop for terminating the program
 while(1):
-        
+       
     # set PWM-Pin
     print('PWM-Pin: 12')
     stroke()
@@ -154,6 +160,9 @@ while(1):
     j = input('Choose Input-Pin or enter 0: ')
     exitnow()
     time.sleep(0.1)
+    if (j == '?' or j == 'help'):
+        dosetup()
+        continue
     try:
         k = int(j)
     except:
@@ -161,9 +170,13 @@ while(1):
         time.sleep(0.2)
         continue
     stroke()
+    
     # set Direction-Pin
     d = input('Choose Direction-Pin: ')
     exitnow()
+    if (d == '?' or d == 'help'):
+        dosetup()
+        continue
     time.sleep(0.1)
     try:
         e = int(d)
@@ -250,9 +263,7 @@ while(1):
                 b = 1
                 continue
             except:
-                stroke()
-                print("Do setup first")
-                stroke()
+                dosetup()
                 continue
 
         # Exit
@@ -274,11 +285,11 @@ while(1):
                 stroke()
                 continue
         # Help
-        if x == '?':
+        if (x == '?'or x == 'help'):
             info2()
             continue
-        # Direction
 
+        # Direction
         if x == 'dir':
             if f == 0:
                 GPIO.output(e, 1)
@@ -330,7 +341,14 @@ while(1):
         print("Duty Cycle:")
         w = input('> ')
         exitnow()
-            
+        if (w == '?' or w == 'help'):
+            stroke()
+            print("This is the Duty cycle.")
+            print("Here you enter a value from 1 to 100.")
+            print("Attention, frequency was reset, now give your frequency again and then your duty cycle")
+            stroke()
+            continue
+        time.sleep(0.5)
         try:
             time.sleep(0.1)
             a = int(w)
