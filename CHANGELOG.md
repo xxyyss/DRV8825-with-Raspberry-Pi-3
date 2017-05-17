@@ -1,5 +1,10 @@
 ChangeLog
 =========
+v0.5.0
+------------
+- Added disable direction-pin 
+- Added direction Pin in value
+
 
 v0.4.2
 ------------
