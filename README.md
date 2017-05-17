@@ -15,8 +15,8 @@ Now I want to share and improve the script for people who have no idea how to co
 - Output of hardware PWM for the step-pin
 - Reading output of the fault pin and give out errors (needs improvement)
 - Choosing in and output pin as well as frequency and duty cycle userfriendly
+- Choosing direction of the motor
 
 **Planned:**
 
-- Choosing direction of the motor
 - Creating a full tutorial for the Driver and the Raspberry out of this
