@@ -181,7 +181,7 @@ while(1):
     stroke()
     
     # set Direction-Pin
-    d = input('Choose Direction-Pin: ')
+    d = input('Choose Direction-Pin or enter 0: ')
     exitnow()
     if (d == '?' or d == 'help'):
         dosetup()

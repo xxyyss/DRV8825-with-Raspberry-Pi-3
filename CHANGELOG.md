@@ -12,7 +12,7 @@ v0.4.2
 
 v0.4.1
 ------------
-- Help function was extended
+- Help function extended
 
 v0.4.0
 ------------
