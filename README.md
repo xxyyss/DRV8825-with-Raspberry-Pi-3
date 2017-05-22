@@ -3,6 +3,7 @@ DRV8825-with-Raspberry-Pi-3
 
 **Python 3 script running under raspbian on a Raspberry Pi 3 for testing or controlling a DRV8825 Stepper Motor Driver with reading of the fault output.**
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/514e98c7e8b54fe990d1ec8757c486d1)](https://www.codacy.com/app/daniel_43/DRV8825-with-Raspberry-Pi-3?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mauricesifrt/DRV8825-with-Raspberry-Pi-3&amp;utm_campaign=Badge_Grade)
 
 ----------
 
