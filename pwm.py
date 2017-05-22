@@ -89,7 +89,7 @@ def info2():
     print("'setup' go back to Setup")
     if (e!= 0):
         print("'dir' changes the direction")
-    
+
 # Check Input Message
 def checkInpMessage():
     stroke()
