@@ -122,7 +122,7 @@ def InValCheck():
     else:
         print("Input Pin    :")
     if (e != 0):
-        ("Direction-Pin:", e)
+        print("Direction-Pin:", e)
     else:
         print("Direction-Pin:")
     
