@@ -44,7 +44,7 @@ def exitsetps():
     if c == 1:
         clear()
     raise SystemExit
-    
+
 pi = pigpio.pi()
 if not pi.connected:
     clear()
@@ -310,7 +310,7 @@ while(1):
                     GPIO.output(e, 0)
                 stroke()
                 print("Direction changed")
-                stroke()    
+                stroke()
                 continue
             
         # Value
