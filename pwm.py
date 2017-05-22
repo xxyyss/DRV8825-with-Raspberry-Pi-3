@@ -32,7 +32,7 @@ clear()
 
 def stroke():
     print("---------------------------------")
-    
+
 def exitsetps():
     stroke()
     print("Closing program")
@@ -55,7 +55,7 @@ if not pi.connected:
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 pigpio.exceptions = False
-pi = pigpio.pi() 
+pi = pigpio.pi()
 
 # Information 1
 def info1():
@@ -146,7 +146,7 @@ def overheated():
 def dosetup():
     stroke()
     print("Do setup first")
-    stroke()            
+    stroke()
             
         
 # Here starts the program
@@ -256,7 +256,7 @@ while(1):
         time.sleep(0.2)
         print("Going to setup")
         stroke()
-        continue       
+        continue
     # End of setup
       
     # Start PWM
@@ -268,7 +268,7 @@ while(1):
         # Start
         if x == 'start':
             try:
-                pi.hardware_PWM(18, y, z) 
+                pi.hardware_PWM(18, y, z)
                 stroke()
                 print("Program started")
                 stroke()
