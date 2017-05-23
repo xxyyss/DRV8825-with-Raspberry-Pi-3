@@ -248,7 +248,7 @@ while(1):
             thread.start_new_thread(overheated,())
         time.sleep(0.5)
         info1()
-        
+
     # Invalid input
     if l != ("y" or "n"):
         checkInpMessage()
