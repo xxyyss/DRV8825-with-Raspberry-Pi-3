@@ -95,7 +95,7 @@ def checkInpMessage():
     stroke()
     print("Check input")
     stroke()
-    
+
 # invalid pin values Message
 def PinInfoMessage():
     stroke()
@@ -125,7 +125,7 @@ def InValCheck():
         print("Direction-Pin:", e)
     else:
         print("Direction-Pin:")
-    
+
 # Start thread for checking fault-output of driver
 def overheated():
     while(1):
@@ -146,9 +146,8 @@ def overheated():
 def dosetup():
     stroke()
     print("Do setup first")
-    stroke()
-            
-        
+    stroke()         
+
 # Here starts the program
 c = 1
 stroke()
@@ -160,7 +159,7 @@ stroke()
 
 # Loop for terminating the program
 while(1):
-       
+
     # set PWM-Pin
     print('PWM-Pin: 12')
     stroke()
@@ -179,7 +178,7 @@ while(1):
         time.sleep(0.2)
         continue
     stroke()
-    
+
     # set Direction-Pin
     d = input('Choose Direction-Pin or enter 0: ')
     exitnow()
@@ -193,7 +192,7 @@ while(1):
         checkInpMessage()
         time.sleep(0.2)
         continue
-    
+
     # Cancel with invalid pin values
     if(k != 8 and k != 10 and k != 16 and k != 18 and k != 22 \
        and k != 36 and k != 37 and k != 31 and k != 29 \
@@ -202,7 +201,7 @@ while(1):
         PinInfoMessage()
         time.sleep(0.2)
         continue
-    
+
     if(e != 8 and e != 10 and e != 16 and e != 18 and e != 22 \
        and e != 36 and e != 37 and e != 31 and e != 29 \
        and e != 15 and e != 13 and e != 11 and e != 7 and e != 23 \
@@ -210,7 +209,7 @@ while(1):
         PinInfoMessage()
         time.sleep(0.2)
         continue
-    
+
     #  Cancel when input and output on same pin
     if (e != 0 and k != 0):
         if(e == k):
@@ -220,7 +219,7 @@ while(1):
             stroke()
             time.sleep(0.1)
             continue
-    
+
     # Continue Setup
     stroke()
     l = input('Continue? [y/n]: ').lower()
@@ -258,7 +257,7 @@ while(1):
         stroke()
         continue
     # End of setup
-      
+
     # Start PWM
     while 1:
 
@@ -312,7 +311,7 @@ while(1):
                 print("Direction changed")
                 stroke()
                 continue
-            
+
         # Value
         if x == 'value':
             try:
@@ -352,7 +351,7 @@ while(1):
             print("Frequency can not be 0")
             stroke()
             continue
-        
+
         # Input DC
         stroke()
         print("Duty Cycle:")
