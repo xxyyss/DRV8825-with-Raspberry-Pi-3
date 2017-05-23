@@ -146,7 +146,7 @@ def overheated():
 def dosetup():
     stroke()
     print("Do setup first")
-    stroke()         
+    stroke()
 
 # Here starts the program
 c = 1
