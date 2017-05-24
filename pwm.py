@@ -50,7 +50,7 @@ if not pi.connected:
     clear()
     stroke()
     stroke()
-    print("You have to start pigpio first with 'sudo pigpoi'")
+    print("You have to start pigpio first with 'sudo pigpoid'")
     exitsetps()
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
