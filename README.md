@@ -20,4 +20,4 @@ Now I want to share and improve the script for people who have no idea how to co
 
 **Planned:**
 
-- Creating a full tutorial for the Driver and the Raspberry out of this
+- This script will be replaced by a new project: https://github.com/dan-nkl/RASPI3-DRV8825
