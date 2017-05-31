@@ -20,4 +20,4 @@ Now I want to share and improve the script for people who have no idea how to co
 
 **Planned:**
 
-- This script will be replaced by a new project: https://github.com/dan-nkl/RASPI3-DRV8825
+- This script will be replaced by a simpler new project: https://github.com/dan-nkl/RASPI3-DRV8825
